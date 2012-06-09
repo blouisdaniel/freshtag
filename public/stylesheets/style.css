@@ -1,0 +1,54 @@
+body{
+	background-image: url('../images/bg.png');
+}
+
+.container{
+	height:600px;
+	background-color: #0f0;
+}
+
+.one{
+	height:1px;
+}
+
+.eight{
+	height:400px;
+	background-color: #555;
+}
+
+.sixteen{
+	height:100px;
+	background-color: #f00;
+}
+
+.wrapper{
+	height:auto;
+	background-color: #00f;
+}
+
+.center{
+	background-color: #DDD;
+	height:90%;
+	margin-top:5%;
+}
+
+.login{
+	margin-top:20%;
+	text-align: center;
+}
+
+.login input{
+	margin-left:50%;
+	position: relative;
+	left:-110px;
+}
+
+.trendHead{
+	text-align: center;
+}
+
+.about{
+	text-align: center;
+	color:#000;
+}
+
