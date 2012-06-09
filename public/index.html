@@ -42,12 +42,19 @@ var apiSecret = "b644c53e81c3bd02523fa8f8d80825aa1022c2b9";
 
 var getSessionToken = function(gotTokenFunc) {
   var xHeader = apiKey + ":" + apiSecret;
-  
+  var req = new XMLHttpRequest();
+  req.open("POST", "http://api.opentok.com/hl/session/create", true);
+  req.setRequestHeader("X-TB-PARTNER-AUTH", xHeader);
+  req.onreadystate = function(e) {
+    alert(req.readyState + req.responseText + req.statusText);
+  };
+  req.send();
 };
 </script>
 
 </head>
 <body>
+<button onclick="getSessionToken(null)">wtf</button>
 	<div class="container">
 		<div class="sixteen columns">
 				<div class="two columns alpha">LOGO</div>
