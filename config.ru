@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 use Rack::Static,
-  :urls => ["images", "stylesheets"],
+  :urls => ["/images", "/stylesheets"],
   :root => "public"
 
 run lambda { |env|
