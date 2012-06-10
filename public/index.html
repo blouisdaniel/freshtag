@@ -71,7 +71,7 @@ window.addEventListener("load", function() {
         // if found use that session id
         console.log("using", login, topic, foundToken)
         loadTokBox(foundToken);
-        dynamicToken = newToken;
+        dynamicToken = foundToken;
       } else {
         // else getbtoken and add
         getSessionToken(function(newToken) {
@@ -96,7 +96,7 @@ window.addEventListener("load", function() {
 
 
 		var apiKey = 15935611; // OpenTok sample API key. Replace with your own API key.
-		var sessionId = "2_MX4xNTkzNTYxMX5-MjAxMi0wNi0xMCAwNTo0MTo1MS43MzEwMjgrMDA6MDB-MC45MDQ3NTY2MTE5MDZ-"; // Replace with your session ID.
+		var sessionId = dynamicToken; // Replace with your session ID.
 		var token = 'devtoken'; // Should not be hard-coded.
 								// Add to the page using the OpenTok server-side libraries.
 		var session;
