@@ -1,0 +1,116 @@
+
+	
+body, html{
+	height:100%;
+	background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.89) 89%, rgba(0,0,0,1) 100%), url('../images/bg.png') repeat; /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(89%,rgba(0,0,0,0.89)), color-stop(100%,rgba(0,0,0,1))), url('../images/bg.png') repeat; /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.89) 89%,rgba(0,0,0,1) 100%), url('../images/bg.png') repeat; /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.89) 89%,rgba(0,0,0,1) 100%), url('../images/bg.png') repeat; /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.89) 89%,rgba(0,0,0,1) 100%), url('../images/bg.png') repeat; /* IE10+ */
+background: linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.89) 89%,rgba(0,0,0,1) 100%), url('../images/bg.png') repeat; /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
+}
+, url('../images/bg.png') repeat
+h1{
+	color: #ddd;
+}
+
+strong{
+	font-size:19px;
+}
+
+.container{
+	margin-top: 20px;
+	border-radius: 3px;
+}
+
+.one{
+	height:1px;
+}
+
+.seven{
+	height:400px;
+}
+
+.fourteen{
+	height:100px;
+}
+
+.wrapper{
+	height:auto;
+	background-color: none;
+}
+
+label{
+	color: #fff;
+	float: left;
+	position: relative;
+	top: 23px;
+	left: 63px;
+}
+
+#publishLink{
+}
+
+.videos{
+	height:auto;
+	width: 782px;
+	margin-left:50%;
+	position: relative;
+	left: -375px;
+	background-color: rgba(250, 251, 252, .4);
+	padding: 20px;
+
+	margin-bottom: 50px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, .5);
+	box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, .5);
+}
+
+.center{
+	background-color: rgba(250, 251, 252, .4);
+	height:90%;
+	margin-top:5%;
+	border-radius:5px;
+	-webkit-box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, .5);
+	box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, .5);
+}
+
+.login{
+	margin-top:16%;
+	text-align: center;
+}
+
+.login input{
+	margin-left:50%;
+	position: relative;
+	left: 20px;
+	background-color: #CCC;
+}
+
+.trendHead{
+	padding-top:10px;
+	text-align: center;
+}
+
+.about{
+	text-align: center;
+	color:#000;
+	background-color: rgba(200, 200, 200, .5);
+	border-radius:5px;
+	-webkit-box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, .5);
+	box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, .5);
+}
+
+.footCont{
+	padding:25px;
+}
+ 
+.smaller{
+	width:770px;
+}
+.submit{
+	margin-left:32%;
+	margin-top:25px;
+}
