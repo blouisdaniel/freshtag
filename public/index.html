@@ -39,6 +39,8 @@
 
 <script>
 
+var dynamicToken = null;
+
 window.addEventListener("load", function() {
 
   var getSessionToken = function(gotSessionFunc) {
@@ -57,7 +59,7 @@ window.addEventListener("load", function() {
    	
   };
 
-  var dynamicToken = null;
+  
 
   var onGetSession = function(e) {
     e.preventDefault();
@@ -72,6 +74,7 @@ window.addEventListener("load", function() {
         console.log("using", login, topic, foundToken)
         loadTokBox(foundToken);
         dynamicToken = foundToken;
+        console.log(dynamicToken);
       } else {
         // else getbtoken and add
         getSessionToken(function(newToken) {
@@ -80,6 +83,7 @@ window.addEventListener("load", function() {
           topicDataRef.set(newToken);
 
          dynamicToken = newToken;
+         console.log(dynamicToken);
         });
       }
     });
@@ -98,7 +102,7 @@ window.addEventListener("load", function() {
 		var apiKey = 15935611; // OpenTok sample API key. Replace with your own API key.
 		var sessionId = dynamicToken; // Replace with your session ID.
 		console.log(sessionId);
-		var token = 'publisher'; // Should not be hard-coded.
+		var token = 'devtoken'; // Should not be hard-coded.
 								// Add to the page using the OpenTok server-side libraries.
 		var session;
 		var publisher;
