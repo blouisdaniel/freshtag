@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
-def get_session_from_opentok
-return "wtf"
+class Session
+
+def self.get
   location = "localhost"
   api_key = "15935611"
   api_secret = "b644c53e81c3bd02523fa8f8d80825aa1022c2b9"
@@ -10,6 +11,8 @@ return "wtf"
   opentok.create_session location
 rescue => err
   err.inspect
+end
+
 end
 
 use Rack::ShowExceptions
@@ -39,7 +42,7 @@ builder = Rack::Builder.new do
   map "/session" do
     run Proc.new {[
       200, {},
-      get_session_from_opentok
+      Session.get
     ]}
   end
 end
