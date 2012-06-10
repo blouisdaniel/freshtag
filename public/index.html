@@ -189,7 +189,9 @@ window.addEventListener("load", function() {
   var onGetSession = function(e) {
     e.preventDefault();
     var login = $("#login").val();
-    var topic = $("#topic").val();
+    var hash = $("#topic").val();
+    var namearr = hash.split("#"); // #topic -> ['', topic']
+    var topic = namearr[namearr.length - 1]; // get last element from namearr
 
 
     var topicDataRef = new Firebase('http://gamma.firebase.com/brickapp/freshtag/topics/' + topic);
