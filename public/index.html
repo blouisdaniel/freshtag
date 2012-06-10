@@ -49,6 +49,10 @@ var getSessionToken = function(gotSessionFunc) {
   req.send();
 };
 
+var loadTokBox function(token) {
+ // use token to present ui
+};
+
 var onGetSession = function() {
   var login = document.getElementById("login").value;
   var topic = document.getElementById("topic").value;
@@ -57,12 +61,15 @@ var onGetSession = function() {
 // else getbtoken and add
   var foundToken = false;
   if (foundToken) {
+    // loadTokBox(foundToken);
   } else {
     getSessionToken(function(token) {
       // firebase set by login or topic
-      alert(login, topic, token);
+      alert(login + topic + token);
+      //loadTokBox(token)
     });
   }
+  return false;
 };
 
 
