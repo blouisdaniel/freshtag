@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-
 require "opentok"
 
 class Session
@@ -23,7 +22,6 @@ use Rack::Static,
   :urls => ["/images", "/stylesheets"],
   :root => "public"
 
-
 default_resource = Proc.new { |env|
   [ 
     200,
@@ -34,7 +32,6 @@ default_resource = Proc.new { |env|
     File.open("public/index.html")
   ]
 }
-
 
 builder = Rack::Builder.new do
   map "/" do
