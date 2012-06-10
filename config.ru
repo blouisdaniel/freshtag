@@ -4,7 +4,8 @@ use Rack::Static,
   :urls => ["/images", "/stylesheets"],
   :root => "public"
 
-run lambda { |env|
+
+default_resource = Proc.new { |env|
   [ 
     200,
     {
@@ -14,4 +15,14 @@ run lambda { |env|
     File.open("public/index.html")
   ]
 }
-  
+
+
+builder = Rack::Builder.new do
+  run default_resource
+  map "/session" do
+    run lambda {[
+      200, {},
+      "chhese"
+    ]}
+  end
+end
