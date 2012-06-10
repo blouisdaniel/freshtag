@@ -7,7 +7,7 @@ def get_session_from_opentok
   api_key = "15935611"
   api_secret = "b644c53e81c3bd02523fa8f8d80825aa1022c2b9"
   api_url = "http://api.opentok.com/hl/session/create"
-  opentok = OpenTok::OpenTokSDK.new api_key, api_secret, api_url
+  opentok = OpenTok::OpenTokSDK.new api_key, api_secret, :api_url => api_url
   opentok.create_session location
 end
 
