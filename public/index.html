@@ -71,10 +71,8 @@ var onGetSession = function(e) {
     // loadTokBox(foundToken);
   } else {
     getSessionToken(function(token) {
-<<<<<<< HEAD
       // firebase set by login or topic
-      //alert(login + topic + token);
-=======
+      //alert(login + topic + token)
 
     	var topicData = new Firebase('http://gamma.firebase.com/brickapp/freshtag/topics/');
 		topicData.set({sessId: token});
@@ -83,7 +81,6 @@ var onGetSession = function(e) {
     	alert(sessId);
     	});
       // firebase set by login or topic
->>>>>>> Sends to FireBase
       //loadTokBox(token)
     });
   }
