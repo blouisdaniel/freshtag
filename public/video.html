@@ -1,102 +1,12 @@
-<!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
-
-	<!-- Basic Page Needs
-  ================================================== -->
-	<meta charset="utf-8">
-	<title>Your Page Title Here :)</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
-
-	<!-- Mobile Specific Metas
-  ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-	<!-- CSS
-  ================================================== -->
-	<link rel="stylesheet" href="stylesheets/base.css">
-	<link rel="stylesheet" href="stylesheets/skeleton.css">
-	<link rel="stylesheet" href="stylesheets/layout.css">
-	<link rel="stylesheet" href="stylesheets/style.css">
-
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-
-	<!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="images/favicon.ico">
-	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-
-	<script src="http://static.firebase.com/v0/firebase.js"></script>
-	<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" ></script>
-
-<script>
-
-window.addEventListener("load", function() {
-
-  var getSessionToken = function(gotSessionFunc) {
-    var req = new XMLHttpRequest();
-    req.open("POST", "/session", true);
-    req.onreadystatechange = function(e) {
-      if (this.readyState == 4) {
-        gotSessionFunc(req.responseText);
-        //alert(req.readyState + req.responseText + req.statusText);
-      }
-    };
-    req.send();
-  };
-
-  var loadTokBox = function(token) {
-   	
-  };
-
-  var dynamicToken = null;
-
-  var onGetSession = function(e) {
-    e.preventDefault();
-    var login = $("#login").val();
-    var topic = $("#topic").val();
-    var topicDataRef = new Firebase('http://gamma.firebase.com/brickapp/freshtag/topics/' + topic);
-    // find topic in firebase
-    topicDataRef.on("value", function(snapshot) {
-      var foundToken = snapshot.val();
-      if (foundToken != null) {
-        // if found use that session id
-        console.log("using", login, topic, foundToken)
-        loadTokBox(foundToken);
-        dynamicToken = newToken;
-      } else {
-        // else getbtoken and add
-        getSessionToken(function(newToken) {
-          // firebase set by login or topic
-          console.log("making", login, topic, newToken)
-          topicDataRef.set(newToken);
-
-         dynamicToken = newToken;
-        });
-      }
-    });
-
-    return false;
-  };
-
-  document.getElementById("main_form").onsubmit = onGetSession;
-
-});
-
-
-
-
-
-		var apiKey = 15935611; // OpenTok sample API key. Replace with your own API key.
-		var sessionId = "2_MX4xNTkzNTYxMX5-MjAxMi0wNi0xMCAwNTo0MTo1MS43MzEwMjgrMDA6MDB-MC45MDQ3NTY2MTE5MDZ-"; // Replace with your session ID.
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>OpenTok API Sample &#151; Basic Tutorial</title>
+	<link href="samples.css" type="text/css" rel="stylesheet" >
+	<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		var apiKey = 1127; // OpenTok sample API key. Replace with your own API key.
+		var sessionId = '2_MX4wfn4yMDEyLTA2LTA5IDE4OjMxOjExLjkwMTMxMyswMDowMH4wLjE4MDgxOTcyMzM0N34'; // Replace with your session ID.
 		var token = 'devtoken'; // Should not be hard-coded.
 								// Add to the page using the OpenTok server-side libraries.
 		var session;
@@ -244,54 +154,9 @@ window.addEventListener("load", function() {
 		}
 
 	</script>
-
 </head>
 <body>
-<div class="container smaller 	">
-		<div class="fourteen columns">
-				<div class="two columns alpha">LOGO</div>
-				<div class="twelve columns omega"><h1>#freshtag</h1></div>
-		</div>
-			<div class="fourteen columns wrapper">
-				<div class="seven columns alpha">
-
-					<!--<div class="one columns alpha"></div>-->
-					<div class="six columns alpha center">
-						<div class="six columns alpha login">
-							<form id="main_form">
-								<label id="login_label"><strong>Log In</strong> <br>(Choose a Username)</label><br><input type="text" name="login" id="login">
-								<label id="topic_label"><strong>What do you want to talk about?</strong><br>(Enter a Hashtag)</label><br><input type="text" name="topic" id="topic">
-								<button type="submit" class="submit">Let's Talk!</button>
-							</form>
-						</div>
-					</div>
-
-					
-
-
-
-				</div>
-				<div class="seven columns omega">
-					
-					<!--<div class="one columns alpha"></div>-->
-					<div class="six columns omega center" style="margin-left:60px">
-						<div class="six columns alpha">
-							<div class="six columns alpha trendHead">
-							<h3>Trending Topics</h3>
-							</div>
-						</div>
-					</div>
-
-
-
-
-				</div>
-			</div>
-		<div class="fourteen columns about"><div class="footCont"><p>FreshTag is the place to have to face to face discussions with random people about stuff you like.<br>
-										Just enter in a totaly anonymous username and something you would like to talk about!
-									</p></div></div>
-
-									<div id="opentok_console"></div>
+	<div id="opentok_console"></div>
 	<div id="links">
        	<input type="button" value="Connect" id ="connectLink" onClick="javascript:connect()" />
        	<input type="button" value="Leave" id ="disconnectLink" onClick="javascript:disconnect()" />
@@ -300,20 +165,8 @@ window.addEventListener("load", function() {
 	</div>
 	<div id="myCamera" class="publisherContainer"></div>
 	<div id="subscribers"></div>
-
-
-	</div>
-
-
-
-
-
-
-	<!-- JS
-	================================================== -->
-	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-
-<!-- End Document
-================================================== -->
 </body>
+	<script>
+		show('connectLink');
+	</script>
 </html>
