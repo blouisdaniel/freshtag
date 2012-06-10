@@ -15,11 +15,11 @@ h1{
 	height:1px;
 }
 
-.eight{
+.seven{
 	height:400px;
 }
 
-.sixteen{
+.fourteen{
 	height:100px;
 }
 
@@ -38,7 +38,7 @@ h1{
 }
 
 .login{
-	margin-top:20%;
+	margin-top:15%;
 	text-align: center;
 }
 
@@ -66,3 +66,6 @@ h1{
 	padding:25px;
 }
  
+.smaller{
+	width:770px;
+}
