@@ -12,6 +12,8 @@ rescue => err
   err.inspect
 end
 
+use Rack::ShowExceptions
+
 use Rack::Static,
   :urls => ["/images", "/stylesheets"],
   :root => "public"
