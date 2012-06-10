@@ -65,17 +65,16 @@ window.addEventListener("load", function() {
     // find topic in firebase
     topicDataRef.on("value", function(snapshot) {
       var foundToken = snapshot.val();
-      if (foundToken) {
+      if (foundToken != null) {
         // if found use that session id
-        console.log(login, topic, foundToken)
+        console.log("using", login, topic, foundToken)
         loadTokBox(foundToken);
       } else {
         // else getbtoken and add
         getSessionToken(function(newToken) {
           // firebase set by login or topic
-          console.log(login, topic, foundToken)
+          console.log("making", login, topic, newToken)
           topicDataRef.set(newToken);
-          loadTokBox(newToken)
         });
       }
     });
