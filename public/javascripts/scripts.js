@@ -1,10 +1,17 @@
 
-	$(".submit_btn").click(function() {
+	$(".submit").click(function() {
 			// validate and process form here 
-			$('.error').hide();
-			var name = $("input#name").val();
-			if (name == "") {
-				$("label#name_error").show();
-				$("input#name").focus();
-				return false;
-			}
+			//$('.error').hide();
+			var name = $("input#login").val();
+			console.log(name);
+		//	if (name == "") {
+		//		$("label#name_error").show();
+		//		$("input#name").focus();
+		//		return false;
+			
+
+	var topicData = new Firebase('http://demo.firebase.com/guest373610');
+    		var topic = $('#topic').val();
+    		myDataRef.push({topic: topic});
+   			$('#messageInput').val('');
+    		}
