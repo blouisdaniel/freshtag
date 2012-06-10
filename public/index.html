@@ -53,7 +53,8 @@ var loadTokBox = function(token) {
  // use token to present ui
 };
 
-var onGetSession = function() {
+var onGetSession = function(e) {
+  e.preventDefault();
   var login = document.getElementById("login").value;
   var topic = document.getElementById("topic").value;
 // find topic in firebase
@@ -89,7 +90,7 @@ alert(token);
 					<!--<div class="one columns alpha"></div>-->
 					<div class="six columns alpha center">
 						<div class="six columns alpha login">
-							<form onsubmit="onGetSession()">
+							<form onsubmit="onGetSession">
 								<label id="login_label"><strong>Log In</strong> <br>(Choose a Username)</label><br><input type="text" name="login" id="login">
 								<label id="topic_label"><strong>What do you want to talk about?</strong><br>(Enter a Hashtag)</label><br><input type="text" name="topic" id="topic">
 								<button type="submit" class="submit">Let's Talk!</button>
