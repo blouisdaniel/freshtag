@@ -12,8 +12,6 @@ def self.get
   api_url = "https://api.opentok.com/hl"
   opentok = ::OpenTok::OpenTokSDK.new api_key, api_secret, :api_url => api_url
   opentok.create_session location
-rescue => err
-  err.inspect
 end
 
 end
