@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+
+require "opentok"
+
 class Session
 
 def self.get
