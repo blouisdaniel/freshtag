@@ -37,21 +37,30 @@
 	<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" ></script>
 
 <script>
-var getSessionToken = function() {
+var getSessionToken = function(gotSessionFunc) {
   var req = new XMLHttpRequest();
   req.open("POST", "/session", true);
   req.onreadystatechange = function(e) {
     if (this.readyState == 4) {
-    alert(req.readyState + req.responseText + req.statusText);
+      gotSessionFunc(req.responseText);
+      //alert(req.readyState + req.responseText + req.statusText);
     }
   };
   req.send();
 };
+
+var onGetSession() {
+  getSessionToken(function(token) {
+    alert(token);
+  });
+};
+
+
 </script>
 
 </head>
 <body>
-<button onclick="getSessionToken(null)">wtf</button>
+<button onclick="onGetSession(null)">wtf</button>
 <div class="container">
 		<div class="sixteen columns">
 				<div class="two columns alpha">LOGO</div>
