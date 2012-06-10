@@ -29,3 +29,5 @@ builder = Rack::Builder.new do
     ]}
   end
 end
+
+run builder
