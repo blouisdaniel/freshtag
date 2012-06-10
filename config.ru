@@ -11,7 +11,8 @@ def self.get
   api_secret = "b644c53e81c3bd02523fa8f8d80825aa1022c2b9"
   api_url = "https://api.opentok.com/hl"
   opentok = ::OpenTok::OpenTokSDK.new api_key, api_secret
-  opentok.create_session location
+  session_id = opentok.create_session location
+  session_id.to_s
 end
 
 end
