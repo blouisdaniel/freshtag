@@ -18,9 +18,12 @@ default_resource = Proc.new { |env|
 
 
 builder = Rack::Builder.new do
-  run default_resource
+  map "/" do
+    run default_resource
+  end
+
   map "/session" do
-    run lambda {[
+    run Proc.new {[
       200, {},
       "chhese"
     ]}
