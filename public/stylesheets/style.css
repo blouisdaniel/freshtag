@@ -49,17 +49,16 @@ label{
 }
 
 #publishLink{
-	padding-left:20px;
 }
 
 .videos{
 	height:auto;
-	width: 823px;
+	width: 782px;
 	margin-left:50%;
 	position: relative;
-	left: -377px;
+	left: -375px;
 	background-color: rgba(250, 251, 252, .4);
-	padding-top:20px;
+	padding: 20px;
 
 	margin-bottom: 50px;
 	border-radius: 5px;
