@@ -190,6 +190,8 @@ window.addEventListener("load", function() {
     e.preventDefault();
     var login = $("#login").val();
     var topic = $("#topic").val();
+
+
     var topicDataRef = new Firebase('http://gamma.firebase.com/brickapp/freshtag/topics/' + topic);
     // find topic in firebase
     topicDataRef.on("value", function(snapshot) {
@@ -226,8 +228,7 @@ window.addEventListener("load", function() {
 <body>
 <div class="container smaller 	">
 		<div class="fourteen columns">
-				<div class="two columns alpha">LOGO</div>
-				<div class="twelve columns omega"><h1>#freshtag</h1></div>
+				<div class="fourteen columns alpha"><img src="images/logo.png"></div>
 		</div>
 			<div class="fourteen columns wrapper">
 				<div class="seven columns alpha">
@@ -237,7 +238,7 @@ window.addEventListener("load", function() {
 						<div class="six columns alpha login">
 							<form id="main_form">
 								<label id="login_label"><strong>Log In</strong> <br>(Choose a Username)</label><br><input type="text" name="login" id="login">
-								<label id="topic_label"><strong>What do you want to talk about?</strong><br>(Enter a Hashtag)</label><br><input type="text" name="topic" id="topic">
+								<label id="topic_label"><strong>Topic</strong><br>(Enter a Hashtag)</label><br><input type="text" name="topic" id="topic">
 								<button type="submit" class="submit">Let's Talk!</button>
 							</form>
 						</div>
@@ -253,9 +254,9 @@ window.addEventListener("load", function() {
 					<!--<div class="one columns alpha"></div>-->
 					<div class="six columns omega center" style="margin-left:60px">
 						<div class="six columns alpha">
-							<div class="six columns alpha trendHead">
-							<h3>Trending Topics</h3>
-							</div>
+							<div class="footCont"><p>Freshtag is the easiest and fastest way to video chat. There's no client and no login. Just type in a hashtag to join or create a session. </p>
+
+<p>Your FreshTag nick-name is completely anonymous, so have fun with it! Find a conversation, start a meeting, ask a question, maybe find a new friend, and above all, always keep it 100.</p></div></div>
 						</div>
 					</div>
 
@@ -264,21 +265,19 @@ window.addEventListener("load", function() {
 
 				</div>
 			</div>
-		<div class="fourteen columns about"><div class="footCont"><p>FreshTag is the place to have to face to face discussions with random people about stuff you like.<br>
-										Just enter in a totaly anonymous username and something you would like to talk about!
-									</p></div></div>
+		<div class="seven columns videos">
 
-									<div id="opentok_console"></div>
-	<div id="links">
+			<div id="opentok_console"></div>
+			<div id="links">
         <!-- these arent really needed
        	<input type="button" value="Connect" id ="connectLink" />
        	<input type="button" value="Leave" id ="disconnectLink" />
         -->
-       	<input type="button" value="Start Publishing" id ="publishLink"/>
-       	<input type="button" value="Stop Publishing" id ="unpublishLink"/>
-	</div>
-	<div id="myCamera" class="publisherContainer"></div>
-	<div id="subscribers"></div>
+       		<input type="button" value="Start Publishing" id ="publishLink"/>
+     	  	<input type="button" value="Stop Publishing" id ="unpublishLink"/>
+		</div>
+		<div id="myCamera" class="publisherContainer"></div>
+		<div id="subscribers"></div>
 
 
 	</div>
