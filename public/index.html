@@ -34,6 +34,7 @@
 	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
 	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
 
+	<script src="http://static.firebase.com/v0/firebase.js"></script>
 	<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" ></script>
 
 <script>
@@ -56,9 +57,12 @@ var loadTokBox = function(token) {
 };
 
 var onGetSession = function(e) {
+	 return false;
   e.preventDefault();
-  var login = document.getElementById("login").value;
-  var topic = document.getElementById("topic").value;
+  var login = $("#login").val();
+  var topic = $("#topic").val();
+
+}
 // find topic in firebase
 // if found use that session id
 // else getbtoken and add
@@ -67,17 +71,26 @@ var onGetSession = function(e) {
     // loadTokBox(foundToken);
   } else {
     getSessionToken(function(token) {
+<<<<<<< HEAD
       // firebase set by login or topic
       //alert(login + topic + token);
+=======
+
+    	var topicData = new Firebase('http://gamma.firebase.com/brickapp/freshtag/topics/');
+		topicData.set({sessId: token});
+    	topicData.on('value', function(snapshot) {
+    	var sessId = snapshot.val();
+    	alert(sessId);
+    	});
+      // firebase set by login or topic
+>>>>>>> Sends to FireBase
       //loadTokBox(token)
     });
   }
   return false;
-};
+});
 
 document.getElementById("main_form").onsubmit = onGetSession;
-
-});
 
 </script>
 
