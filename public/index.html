@@ -64,6 +64,7 @@ var onGetSession = function() {
     // loadTokBox(foundToken);
   } else {
     getSessionToken(function(token) {
+alert(token);
       // firebase set by login or topic
       alert(login + topic + token);
       //loadTokBox(token)
