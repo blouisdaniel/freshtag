@@ -10,8 +10,8 @@
 		//		return false;
 			
 
-	var topicData = new Firebase('http://demo.firebase.com/guest373610');
-    		var topic = $('#topic').val();
-    		myDataRef.push({topic: topic});
-   			$('#messageInput').val('');
+		var topicData = new Firebase('http://demo.firebase.com/guest373610');
+    		var topic = $('input#topic').val();
+    		topicData.push({topic: topic});
+   			$('#topic').val('');
     		}
