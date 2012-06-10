@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 
-require "opentok"
-
 def get_session_from_opentok
+return "wtf"
   location = "localhost"
   api_key = "15935611"
   api_secret = "b644c53e81c3bd02523fa8f8d80825aa1022c2b9"
