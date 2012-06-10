@@ -40,7 +40,11 @@ builder = Rack::Builder.new do
 
   map "/session" do
     run Proc.new {[
-      200, {},
+      200,
+      {
+        'Content-Type' => "text/plain",
+        "Cache-Control" => "public, must-revalidate, max-age=0"
+      },
       Session.get
     ]}
   end
