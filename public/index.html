@@ -61,20 +61,20 @@ var onGetSession = function() {
 </head>
 <body>
 <button onclick="onGetSession(null)">wtf</button>
-<div class="container">
-		<div class="sixteen columns">
+<div class="container smaller 	">
+		<div class="fourteen columns">
 				<div class="two columns alpha">LOGO</div>
-				<div class="fourteen columns omega"><h1>#freshtag</h1></div>
+				<div class="twelve columns omega"><h1>#freshtag</h1></div>
 		</div>
-			<div class="sixteen columns wrapper">
-				<div class="eight columns alpha">
+			<div class="fourteen columns wrapper">
+				<div class="seven columns alpha">
 
-					<div class="one columns alpha"></div>
-					<div class="six columns center">
+					<!--<div class="one columns alpha"></div>-->
+					<div class="six columns alpha center">
 						<div class="six columns alpha login">
 							<form>
-								<label id="login_label">Anonymous Log In (Choose a Username)</label><br><input type="text" name="login" id="login">
-								<label id="topic_label">What do you want to talk about?</label><br><input type="text" name="topic" id="topic">
+								<label id="login_label"><strong>Log In</strong> <br>(Choose a Username)</label><br><input type="text" name="login" id="login">
+								<label id="topic_label"><strong>What do you want to talk about?</strong><br>(Enter a Hashtag)</label><br><input type="text" name="topic" id="topic">
 								<button type="submit" class="submit">Let's Talk!</button>
 							</form>
 						</div>
@@ -85,11 +85,10 @@ var onGetSession = function() {
 
 
 				</div>
-				<div class="eight columns omega">
+				<div class="seven columns omega">
 					
-
-					<div class="one columns alpha"></div>
-					<div class="six columns center">
+					<!--<div class="one columns alpha"></div>-->
+					<div class="six columns omega center" style="margin-left:60px">
 						<div class="six columns alpha">
 							<div class="six columns alpha trendHead">
 							<h3>Trending Topics</h3>
@@ -102,9 +101,10 @@ var onGetSession = function() {
 
 				</div>
 			</div>
-		<div class="sixteen columns about"><p>FreshTag is the place to have to face to face discussions with random people about stuff you like.<br>
+		<div class="fourteen columns about"><div class="footCont"><p>FreshTag is the place to have to face to face discussions with random people about stuff you like.<br>
 										Just enter in a totaly anonymous username and something you would like to talk about!
-									</p></div>
+									</p></div></div>
+
 
 	</div>
 
