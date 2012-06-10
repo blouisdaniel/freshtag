@@ -46,6 +46,10 @@ strong{
 
 label{
 	color: #fff;
+	float: left;
+	position: relative;
+	top: 23px;
+	left: 63px;
 }
 
 #publishLink{
@@ -76,14 +80,14 @@ label{
 }
 
 .login{
-	margin-top:15%;
+	margin-top:16%;
 	text-align: center;
 }
 
 .login input{
 	margin-left:50%;
 	position: relative;
-	left:-110px;
+	left: 20px;
 	background-color: #CCC;
 }
 
@@ -107,4 +111,8 @@ label{
  
 .smaller{
 	width:770px;
+}
+.submit{
+	margin-left:32%;
+	margin-top:25px;
 }
