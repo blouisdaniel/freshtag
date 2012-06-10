@@ -43,6 +43,14 @@ var dynamicToken = null;
 
 window.addEventListener("load", function() {
 
+  function show(id) {
+    document.getElementById(id).style.display = 'block';
+  }
+
+  function hide(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
   var getSessionToken = function(gotSessionFunc) {
     var req = new XMLHttpRequest();
     req.open("POST", "/session", true);
@@ -55,58 +63,13 @@ window.addEventListener("load", function() {
     req.send();
   };
 
-  var loadTokBox = function(token) {
+  var loadTokBox = function(sessionId) {
    	
-  };
-
-  
-
-  var onGetSession = function(e) {
-    e.preventDefault();
-    var login = $("#login").val();
-    var topic = $("#topic").val();
-    var topicDataRef = new Firebase('http://gamma.firebase.com/brickapp/freshtag/topics/' + topic);
-    // find topic in firebase
-    topicDataRef.on("value", function(snapshot) {
-      var foundToken = snapshot.val();
-      if (foundToken != null) {
-        // if found use that session id
-        console.log("using", login, topic, foundToken)
-        loadTokBox(foundToken);
-        dynamicToken = foundToken;
-        console.log(dynamicToken);
-      } else {
-        // else getbtoken and add
-        getSessionToken(function(newToken) {
-          // firebase set by login or topic
-          console.log("making", login, topic, newToken)
-          topicDataRef.set(newToken);
-
-         dynamicToken = newToken;
-         console.log(dynamicToken);
-        });
-      }
-    });
-
-    return false;
-  };
-
-  document.getElementById("main_form").onsubmit = onGetSession;
-
-});
-
-
-
-
-
-		var apiKey = 15935611; // OpenTok sample API key. Replace with your own API key.
-		var sessionId = dynamicToken; // Replace with your session ID.
-		console.log(sessionId);
-		var token = 'devtoken'; // Should not be hard-coded.
-								// Add to the page using the OpenTok server-side libraries.
-		var session;
 		var publisher;
 		var subscribers = {};
+    var apiKey = 15935611; // OpenTok sample code key. Replace with your own API key.
+    var token = 'devtoken'; // Should not be hard-coded.
+    var session = null;
 
 		// Un-comment either of the following to set automatic logging and exception handling.
 		// See the exceptionHandler() method below.
@@ -126,26 +89,8 @@ window.addEventListener("load", function() {
 			session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
 			session.addEventListener('streamCreated', streamCreatedHandler);
 			session.addEventListener('streamDestroyed', streamDestroyedHandler);
-		}
 
-		//--------------------------------------
-		//  LINK CLICK HANDLERS
-		//--------------------------------------
-
-		/*
-		If testing the app from the desktop, be sure to check the Flash Player Global Security setting
-		to allow the page from communicating with SWF content loaded from the web. For more information,
-		see http://www.tokbox.com/opentok/build/tutorials/helloworld.html#localTest
-		*/
-		function connect() {
-			session.connect(apiKey, token);
-		}
-
-		function disconnect() {
-			session.disconnect();
-			hide('disconnectLink');
-			hide('publishLink');
-			hide('unpublishLink');
+      session.connect(apiKey, token);
 		}
 
 		// Called when user wants to start publishing to the session
@@ -161,6 +106,8 @@ window.addEventListener("load", function() {
 			}
 		}
 
+    document.getElementById("publishLink").onclick = startPublishing;
+
 		function stopPublishing() {
 			if (publisher) {
 				session.unpublish(publisher);
@@ -170,6 +117,8 @@ window.addEventListener("load", function() {
 			show('publishLink');
 			hide('unpublishLink');
 		}
+    
+    document.getElementById("unpublishLink").onclick = stopPublishing;
 
 		//--------------------------------------
 		//  OPENTOK EVENT HANDLERS
@@ -180,9 +129,7 @@ window.addEventListener("load", function() {
 			for (var i = 0; i < event.streams.length; i++) {
 				addStream(event.streams[i]);
 			}
-			show('disconnectLink');
 			show('publishLink');
-			hide('connectLink');
 		}
 
 		function streamCreatedHandler(event) {
@@ -202,8 +149,6 @@ window.addEventListener("load", function() {
 			// will automatically be removed. This default behaviour can be prevented using event.preventDefault()
 			publisher = null;
 
-			show('connectLink');
-			hide('disconnectLink');
 			hide('publishLink');
 			hide('unpublishLink');
 		}
@@ -239,14 +184,41 @@ window.addEventListener("load", function() {
 			document.getElementById("subscribers").appendChild(subscriberDiv);
 			subscribers[stream.streamId] = session.subscribe(stream, subscriberDiv.id);
 		}
+  };
 
-		function show(id) {
-			document.getElementById(id).style.display = 'block';
-		}
+  var onGetSession = function(e) {
+    e.preventDefault();
+    var login = $("#login").val();
+    var topic = $("#topic").val();
+    var topicDataRef = new Firebase('http://gamma.firebase.com/brickapp/freshtag/topics/' + topic);
+    // find topic in firebase
+    topicDataRef.on("value", function(snapshot) {
+      var foundSession = snapshot.val();
+      if (foundSession != null) {
+        // if found use that session id
+        console.log("using", login, topic, foundSession);
+        loadTokBox(foundSession);
+      } else {
+        // else getbtoken and add
+        getSessionToken(function(newSession) {
+          // firebase set by login or topic
+          console.log("making", login, topic, newSession)
+          topicDataRef.set(newSession);
+        });
+      }
+    });
 
-		function hide(id) {
-			document.getElementById(id).style.display = 'none';
-		}
+    return false;
+  };
+
+  document.getElementById("main_form").onsubmit = onGetSession;
+
+  hide('publishLink');
+  hide('unpublishLink');
+
+});
+
+
 
 	</script>
 
@@ -298,10 +270,12 @@ window.addEventListener("load", function() {
 
 									<div id="opentok_console"></div>
 	<div id="links">
-       	<input type="button" value="Connect" id ="connectLink" onClick="javascript:connect()" />
-       	<input type="button" value="Leave" id ="disconnectLink" onClick="javascript:disconnect()" />
-       	<input type="button" value="Start Publishing" id ="publishLink" onClick="javascript:startPublishing()" />
-       	<input type="button" value="Stop Publishing" id ="unpublishLink" onClick="javascript:stopPublishing()" />
+        <!-- these arent really needed
+       	<input type="button" value="Connect" id ="connectLink" />
+       	<input type="button" value="Leave" id ="disconnectLink" />
+        -->
+       	<input type="button" value="Start Publishing" id ="publishLink"/>
+       	<input type="button" value="Stop Publishing" id ="unpublishLink"/>
 	</div>
 	<div id="myCamera" class="publisherContainer"></div>
 	<div id="subscribers"></div>
