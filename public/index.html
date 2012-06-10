@@ -49,7 +49,7 @@ var getSessionToken = function(gotSessionFunc) {
   req.send();
 };
 
-var onGetSession() {
+var onGetSession = function() {
   getSessionToken(function(token) {
     alert(token);
   });
