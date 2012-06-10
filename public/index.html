@@ -50,9 +50,19 @@ var getSessionToken = function(gotSessionFunc) {
 };
 
 var onGetSession = function() {
-  getSessionToken(function(token) {
-    alert(token);
-  });
+  var login = document.getElementById("login").value;
+  var topic = document.getElementById("topic").value;
+// find topic in firebase
+// if found use that session id
+// else getbtoken and add
+  var foundToken = false;
+  if (foundToken) {
+  } else {
+    getSessionToken(function(token) {
+      // firebase set by login or topic
+      alert(login, topic, token);
+    });
+  }
 };
 
 
@@ -60,7 +70,6 @@ var onGetSession = function() {
 
 </head>
 <body>
-<button onclick="onGetSession(null)">wtf</button>
 <div class="container smaller 	">
 		<div class="fourteen columns">
 				<div class="two columns alpha">LOGO</div>
@@ -72,7 +81,7 @@ var onGetSession = function() {
 					<!--<div class="one columns alpha"></div>-->
 					<div class="six columns alpha center">
 						<div class="six columns alpha login">
-							<form>
+							<form onsubmit="onGetSession()">
 								<label id="login_label"><strong>Log In</strong> <br>(Choose a Username)</label><br><input type="text" name="login" id="login">
 								<label id="topic_label"><strong>What do you want to talk about?</strong><br>(Enter a Hashtag)</label><br><input type="text" name="topic" id="topic">
 								<button type="submit" class="submit">Let's Talk!</button>
