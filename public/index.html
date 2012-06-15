@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>FreshTag, the easy video chat service</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+	<link rel="stylesheet" href="stylesheets/style.css">
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+	<script src="http://static.firebase.com/v0/firebase.js"></script>
+	<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" ></script>
+
+<script>
+
+var dynamicToken = null;
+
+window.addEventListener("load", function() {
+
+  function show(id) {
+    document.getElementById(id).style.display = 'block';
+  }
+
+  function hide(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  var getSessionToken = function(gotSessionFunc) {
+    var req = new XMLHttpRequest();
+    req.open("POST", "/session", true);
+    req.onreadystatechange = function(e) {
+      if (this.readyState == 4) {
+        gotSessionFunc(req.responseText);
+        //alert(req.readyState + req.responseText + req.statusText);
+      }
+    };
+    req.send();
+  };
+
+  var loadTokBox = function(sessionId) {
+   	
+		var publisher;
+		var subscribers = {};
+    var apiKey = 15935611; // OpenTok sample code key. Replace with your own API key.
+    var token = 'devtoken'; // Should not be hard-coded.
+    var session = null;
+
+		// Un-comment either of the following to set automatic logging and exception handling.
+		// See the exceptionHandler() method below.
+		// TB.setLogLevel(TB.DEBUG);
+		// TB.addEventListener("exception", exceptionHandler);
+
+		if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
+			alert("You don't have the minimum requirements to run this application."
+				  + "Please upgrade to the latest version of Flash.");
+		} else {
+			session = TB.initSession(sessionId);	// Initialize session
+
+			// Add event listeners to the session
+			session.addEventListener('sessionConnected', sessionConnectedHandler);
+			session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
+			session.addEventListener('connectionCreated', connectionCreatedHandler);
+			session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
+			session.addEventListener('streamCreated', streamCreatedHandler);
+			session.addEventListener('streamDestroyed', streamDestroyedHandler);
+
+      session.connect(apiKey, token);
+		}
+
+		// Called when user wants to start publishing to the session
+		function startPublishing() {
+			if (!publisher) {
+				var parentDiv = document.getElementById("myCamera");
+				var publisherDiv = document.createElement('div'); // Create a div for the publisher to replace
+				publisherDiv.setAttribute('id', 'opentok_publisher');
+				parentDiv.appendChild(publisherDiv);
+				publisher = session.publish(publisherDiv.id); // Pass the replacement div id to the publish method
+				show('unpublishLink');
+				hide('publishLink');
+			}
+		}
+
+    document.getElementById("publishLink").onclick = startPublishing;
+
+		function stopPublishing() {
+			if (publisher) {
+				session.unpublish(publisher);
+			}
+			publisher = null;
+
+			show('publishLink');
+			hide('unpublishLink');
+		}
+    
+    document.getElementById("unpublishLink").onclick = stopPublishing;
+
+		//--------------------------------------
+		//  OPENTOK EVENT HANDLERS
+		//--------------------------------------
+
+		function sessionConnectedHandler(event) {
+			// Subscribe to all streams currently in the Session
+			for (var i = 0; i < event.streams.length; i++) {
+				addStream(event.streams[i]);
+			}
+			show('publishLink');
+		}
+
+		function streamCreatedHandler(event) {
+			// Subscribe to the newly created streams
+			for (var i = 0; i < event.streams.length; i++) {
+				addStream(event.streams[i]);
+			}
+		}
+
+		function streamDestroyedHandler(event) {
+			// This signals that a stream was destroyed. Any Subscribers will automatically be removed.
+			// This default behaviour can be prevented using event.preventDefault()
+		}
+
+		function sessionDisconnectedHandler(event) {
+			// This signals that the user was disconnected from the Session. Any subscribers and publishers
+			// will automatically be removed. This default behaviour can be prevented using event.preventDefault()
+			publisher = null;
+
+			hide('publishLink');
+			hide('unpublishLink');
+		}
+
+		function connectionDestroyedHandler(event) {
+			// This signals that connections were destroyed
+		}
+
+		function connectionCreatedHandler(event) {
+			// This signals new connections have been created.
+		}
+
+		/*
+		If you un-comment the call to TB.addEventListener("exception", exceptionHandler) above, OpenTok calls the
+		exceptionHandler() method when exception events occur. You can modify this method to further process exception events.
+		If you un-comment the call to TB.setLogLevel(), above, OpenTok automatically displays exception event messages.
+		*/
+		function exceptionHandler(event) {
+			alert("Exception: " + event.code + "::" + event.message);
+		}
+
+		//--------------------------------------
+		//  HELPER METHODS
+		//--------------------------------------
+
+		function addStream(stream) {
+			// Check if this is the stream that I am publishing, and if so do not publish.
+			if (stream.connection.connectionId == session.connection.connectionId) {
+				return;
+			}
+			var subscriberDiv = document.createElement('div'); // Create a div for the subscriber to replace
+			subscriberDiv.setAttribute('id', stream.streamId); // Give the replacement div the id of the stream as its id.
+			document.getElementById("subscribers").appendChild(subscriberDiv);
+			subscribers[stream.streamId] = session.subscribe(stream, subscriberDiv.id);
+		}
+  };
+
+  var onGetSession = function(e) {
+    e.preventDefault();
+    var login = $("#login").val();
+    var hash = $("#topic").val();
+    var namearr = hash.split("#"); // #topic -> ['', topic']
+    var topic = namearr[namearr.length - 1]; // get last element from namearr
+
+
+    var topicDataRef = new Firebase('http://gamma.firebase.com/brickapp/freshtag/topics/' + topic);
+    // find topic in firebase
+    topicDataRef.on("value", function(snapshot) {
+      var foundSession = snapshot.val();
+      if (foundSession != null) {
+        // if found use that session id
+        console.log("using", login, topic, foundSession);
+        loadTokBox(foundSession);
+      } else {
+        // else getbtoken and add
+        getSessionToken(function(newSession) {
+          // firebase set by login or topic
+          console.log("making", login, topic, newSession)
+          topicDataRef.set(newSession);
+        });
+      }
+    });
+
+    return false;
+  };
+
+  document.getElementById("main_form").onsubmit = onGetSession;
+
+  hide('publishLink');
+  hide('unpublishLink');
+
+});
+
+
+
+	</script>
+
+</head>
+<body>
+<div class="container smaller 	">
+		<div class="fourteen columns">
+				<div class="fourteen columns alpha"><img src="images/logo.png"></div>
+		</div>
+			<div class="fourteen columns wrapper">
+				<div class="seven columns alpha">
+
+					<!--<div class="one columns alpha"></div>-->
+					<div class="six columns alpha center" style="width:115%">
+						<div class="six columns alpha login">
+							<form id="main_form">
+								<label id="login_label"><strong>nickname:</strong></label><br><input type="text" name="login" id="login">
+								<label id="topic_label"><strong>#hashtag:</strong></label><br><input type="text" name="topic" id="topic">
+								<button type="submit" class="submit">Connect</button>
+							</form>
+						</div>
+					</div>
+
+					
+
+
+
+				</div>
+				<div class="seven columns omega">
+					
+					<!--<div class="one columns alpha"></div>-->
+					<div class="six columns omega center" style="margin-left:60px">
+						<div class="six columns alpha">
+							<div class="footCont"><p>FreshTag is the easiest and fastest way to video chat. There's no client and no login. Just type in a hashtag to join or create a session. </p>
+
+<p>Your FreshTag nick-name is completely anonymous, so have fun with it! Find a conversation, start a meeting, ask a question, maybe find a new friend, and above all, always keep it <em>classy</em>.</p><p> Created by Cody Byrnes, Ben Daniel, <br>Jon Bardin, and Prateek Gupta at xhack2012</p>
+
+<p><a href="https://docs.google.com/spreadsheet/ccc?key=0Aouz1pRPi0redGlCVzk2M25waVpXR0x3b2s0dUNfQnc">Want Updates? Leave your email here.</a></div></div>
+						</div>
+					</div>
+
+
+
+
+				</div>
+			</div>
+		<div class="seven columns videos">
+
+			<div id="opentok_console"></div>
+			<div id="links">
+        <!-- these arent really needed
+       	<input type="button" value="Connect" id ="connectLink" />
+       	<input type="button" value="Leave" id ="disconnectLink" />
+        -->
+       		<input type="button" value="Start" id ="publishLink"/>
+     	  	<input type="button" value="Stop" id ="unpublishLink"/>
+		</div>
+		<div id="myCamera" class="publisherContainer"></div>
+		<div id="subscribers"></div>
+
+
+	</div>
+
+
+
+
+
+
+	<!-- JS
+	================================================== -->
+	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+
+<!-- End Document
+================================================== -->
+</body>
+</html>
